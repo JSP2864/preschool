@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+  font-family: "Baloo 2", ui-rounded, system-ui, sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-bubble-500 px-5 py-2.5 font-semibold text-white shadow-md transition hover:bg-bubble-600 focus:outline-none focus:ring-2 focus:ring-bubble-600 focus:ring-offset-2;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-bubble-500 px-5 py-2.5 font-semibold text-bubble-600 transition hover:bg-bubble-100;
+  }
+  .card {
+    @apply rounded-3xl bg-white p-6 shadow-md;
+  }
+  .input {
+    @apply w-full rounded-xl border border-bubble-200 bg-white px-4 py-2 text-slate-800 focus:border-bubble-500 focus:outline-none focus:ring-2 focus:ring-bubble-200;
+  }
+  .label {
+    @apply mb-1 block text-sm font-semibold text-slate-700;
+  }
+}

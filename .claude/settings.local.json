@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -l \"WhatsApp Unknown 2026-04-25 at 2.32.43 PM.zip\")",
+      "Bash(unzip -l \"WhatsApp Unknown 2026-04-25 at 2.35.10 PM.zip\")",
+      "Read(//private/tmp/**)",
+      "Bash(rm -rf lb_extract)",
+      "Bash(mkdir -p lb_extract/zip1 lb_extract/zip2)",
+      "Bash(unzip -q \"/Users/jsp/Documents/codebase/images/WhatsApp Unknown 2026-04-25 at 2.32.43 PM.zip\" -d lb_extract/zip1)",
+      "Bash(unzip -q \"/Users/jsp/Documents/codebase/images/WhatsApp Unknown 2026-04-25 at 2.35.10 PM.zip\" -d lb_extract/zip2)",
+      "Bash(npx tsc *)",
+      "Bash(grep -E '^\\(tsc|vite\\)$')",
+      "Bash(npm install *)",
+      "Bash(./node_modules/.bin/tsc -b)",
+      "Bash(./node_modules/.bin/vite build *)"
+    ]
+  }
+}
