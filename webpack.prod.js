@@ -10,7 +10,7 @@ module.exports = merge(common, {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].[contenthash:8].js',
     chunkFilename: 'js/[name].[contenthash:8].chunk.js',
-    publicPath: '/',
+    publicPath: '/preschool/',
     clean: true,
   },
   module: {

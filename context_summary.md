@@ -24,11 +24,13 @@ npm install
 npm start
 npm run build
 npm run build:dev
+npm run deploy
 ```
 
 - `npm start` runs `webpack-dev-server` on `http://localhost:3000`.
 - `npm run build` creates a production build in `dist`.
 - `npm run build:dev` creates a development build in `dist`.
+- `npm run deploy` builds and publishes `dist` to `https://github.com/JSP2864/preschool.git` using `gh-pages`.
 
 ## Application Structure
 
@@ -71,11 +73,13 @@ postcss.config.js
 babel.config.json
 package.json
 README.md
+.github/workflows/deploy.yml
 ```
 
 ## Entry Points and Routing
 
 - `src/index.js` mounts the React app into `#root`, wraps it in `React.StrictMode`, and provides `BrowserRouter`.
+- The router uses a dynamic basename: `/preschool` on GitHub Pages and an empty basename during local development.
 - `src/App.jsx` defines the shared page shell with `Navbar`, route outlet via `Routes`, and `Footer`.
 
 Routes:
@@ -217,6 +221,7 @@ Webpack handles images and videos through asset/resource rules and emits hashed 
 - Babel loader for JS/JSX
 - Asset modules for images, videos, and fonts
 - `HtmlWebpackPlugin` using `public/index.html`
+- Generates both `index.html` and `404.html` so GitHub Pages can serve the React app for deep links and refreshes.
 
 ### Development Config
 
@@ -239,18 +244,43 @@ Webpack handles images and videos through asset/resource rules and emits hashed 
 - Source maps enabled
 - CSS extracted with `MiniCssExtractPlugin`
 - Content-hashed JS and CSS output
+- Production `publicPath` is `/preschool/` for GitHub Pages project hosting.
 - Vendor split chunk
 - Runtime chunk
 - Performance warning thresholds set to 512 KB
 
+## GitHub Pages Deployment
+
+Repository URL:
+
+```text
+https://github.com/JSP2864/preschool.git
+```
+
+Expected GitHub Pages URL:
+
+```text
+https://jsp2864.github.io/preschool/
+```
+
+Deployment support:
+
+- `package.json` has `homepage`, `predeploy`, and `deploy` fields for manual deployment with `gh-pages`.
+- `.github/workflows/deploy.yml` builds on pushes to `main` or `master` and deploys `dist` with GitHub Actions Pages.
+- GitHub Pages should be set to use **GitHub Actions** as the source for workflow-based deployment.
+- Production builds emit asset URLs under `/preschool/`.
+- `webpack.common.js` emits a matching `404.html` to support direct browser refreshes on React Router paths.
+
 ## Current Build Status
 
-`npm run build` completes successfully.
+`npm run build` completes successfully after GitHub Pages configuration.
 
 Observed build result:
 
 - Production entrypoint is about 232 KB excluding auxiliary media assets.
 - Total emitted/cached asset payload is about 43 MB.
+- `dist/index.html` and `dist/404.html` are generated and match.
+- Generated CSS and JS URLs point to `/preschool/...`.
 - Webpack reports performance warnings because many image and video files exceed the configured 512 KB limit.
 
 Large assets include:
@@ -267,10 +297,7 @@ The app builds, but media weight is the main performance concern.
 ## Known Gaps and Notes
 
 - The repository is not currently initialized as a Git repository.
-- The README is slightly stale:
-  - It does not mention the `News` and `Contact` pages.
-  - It references `Navbar.css`, but no `src/styles/Navbar.css` file exists.
-  - It describes a smaller original page set than the current app contains.
+- The README has been updated for the current pages and GitHub Pages deployment.
 - The contact form is frontend-only and does not persist or send submissions.
 - The news cards are static and the "Read more" buttons have no behavior.
 - There are no tests configured.
@@ -285,10 +312,11 @@ The app builds, but media weight is the main performance concern.
    - Compress or shorten MP4 files.
    - Lazy-load video-heavy sections where possible.
 
-2. Update README.
-   - Include `News` and `Contact`.
-   - Remove or correct the `Navbar.css` reference.
-   - Document the current media and styling approach.
+2. After pushing to GitHub, enable Pages through GitHub Actions.
+   - Open the repository settings.
+   - Go to Pages.
+   - Set the source to GitHub Actions.
+   - Push to `main` or `master`, or run the workflow manually.
 
 3. Decide whether the contact form should submit somewhere.
    - Options include Formspree, Netlify Forms, a custom API, or email service integration.
@@ -303,4 +331,4 @@ The app builds, but media weight is the main performance concern.
 
 ## High-Level Summary
 
-Tiny Bubble is a polished static React preschool website with strong visual content and a simple route-based structure. It is easy to run and builds successfully. Its main technical risk is performance from large local media assets. Its main product gap is that interactive surfaces, especially contact and news, are presentational rather than connected to real workflows.
+Tiny Bubble is a polished static React preschool website with strong visual content and a simple route-based structure. It is configured for GitHub Pages at `https://jsp2864.github.io/preschool/` and builds successfully. Its main technical risk is performance from large local media assets. Its main product gap is that interactive surfaces, especially contact and news, are presentational rather than connected to real workflows.

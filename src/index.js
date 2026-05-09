@@ -6,10 +6,13 @@ import './styles/global.css';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+const routerBasename = window.location.pathname.startsWith('/preschool')
+  ? '/preschool'
+  : '';
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <App />
     </BrowserRouter>
   </React.StrictMode>

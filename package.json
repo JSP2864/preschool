@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "description": "Tiny Bubble Pre-School website",
+  "homepage": "https://jsp2864.github.io/preschool/",
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "build:dev": "webpack --config webpack.dev.js"
+    "build:dev": "webpack --config webpack.dev.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist -r https://github.com/JSP2864/preschool.git"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -20,6 +23,7 @@
     "autoprefixer": "^10.5.0",
     "babel-loader": "^9.1.3",
     "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.9.1",
     "postcss": "^8.5.14",
