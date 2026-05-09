@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #fff8f3;
+    --color-text: #1f2937;
+    --color-muted: #475569;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Quicksand', system-ui, -apple-system, sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fredoka', system-ui, -apple-system, sans-serif;
+    line-height: 1.15;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 600; }
+  h3 { font-size: 1.25rem; font-weight: 600; }
+  h4 { font-size: 1rem; font-weight: 600; }
+
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-bubble-500 px-6 py-3 font-bold text-white shadow-md ring-1 ring-bubble-600/20 transition hover:scale-[1.02] hover:bg-bubble-600 hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-bold text-slate-800 shadow-md ring-1 ring-slate-200 transition hover:scale-[1.02] hover:bg-slate-50;
+  }
+
+  .card {
+    @apply rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/5;
+  }
+}
+
+@layer utilities {
+  .scrollbar-pretty::-webkit-scrollbar { height: 8px; }
+  .scrollbar-pretty::-webkit-scrollbar-thumb {
+    background: theme('colors.bubble.200');
+    border-radius: 9999px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
