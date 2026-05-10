@@ -47,6 +47,36 @@
   .card {
     @apply rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/5;
   }
+
+  .news-marquee {
+    @apply flex items-center gap-3 overflow-hidden rounded-full bg-white/90 p-2 shadow-lg ring-1 ring-orange-100 backdrop-blur;
+  }
+
+  .news-marquee__label {
+    @apply shrink-0 rounded-full bg-orange-500 px-4 py-2 text-xs font-extrabold uppercase text-white;
+  }
+
+  .news-marquee__track {
+    @apply flex min-w-0 flex-1 overflow-hidden;
+  }
+
+  .news-marquee__content {
+    animation: news-marquee 24s linear infinite;
+    @apply flex min-w-max items-center gap-8 pr-8 text-sm font-extrabold text-slate-800;
+  }
+
+  .news-marquee__content span {
+    @apply relative whitespace-nowrap;
+  }
+
+  .news-marquee__content span::after {
+    content: '';
+    @apply absolute -right-5 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-orange-300;
+  }
+
+  .news-marquee__call {
+    @apply shrink-0 rounded-full bg-slate-900 px-4 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-orange-600;
+  }
 }
 
 @layer utilities {
@@ -55,6 +85,11 @@
     background: theme('colors.bubble.200');
     border-radius: 9999px;
   }
+}
+
+@keyframes news-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
 @media (prefers-reduced-motion: reduce) {

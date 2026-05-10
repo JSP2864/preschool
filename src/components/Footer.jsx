@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import DirectionLink from './DirectionLink';
 import '../styles/Footer.css';
 
 export default function Footer() {
@@ -28,17 +29,17 @@ export default function Footer() {
           <div>
             <h4>Visit Us</h4>
             <ul>
-              <li>12 Sunshine Lane</li>
-              <li>Greenpark, 560001</li>
-              <li>Mon–Fri · 8:30 AM – 4:30 PM</li>
+              <li>SK-137, Sec-116 Noida</li>
+              <li><DirectionLink className="mt-1" /></li>
+              <li>Mon-Sat · 8:30 AM - 2:00 PM</li>
             </ul>
           </div>
 
           <div>
             <h4>Reach Out</h4>
             <ul>
-              <li><a href="mailto:hello@tinybubble.school">hello@tinybubble.school</a></li>
-              <li><a href="tel:+910000000000">+91 00000 00000</a></li>
+              <li><a href="mailto:contact@tinybubblepreschool.com">contact@tinybubblepreschool.com</a></li>
+              <li><a href="tel:+918287839782">+91 82878 39782</a></li>
             </ul>
           </div>
         </div>

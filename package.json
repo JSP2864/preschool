@@ -6,10 +6,13 @@
   "homepage": "https://jsp2864.github.io/preschool/",
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js --env publicPath=/ --env outputPath=build",
+    "build:github": "webpack --config webpack.prod.js --env publicPath=/preschool/ --env outputPath=docs",
     "build:dev": "webpack --config webpack.dev.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -r https://github.com/JSP2864/preschool.git"
+    "deploy": "npm run deploy:s3",
+    "deploy:s3": "npm run build && aws s3 sync build s3://$AWS_S3_BUCKET --delete && aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'",
+    "predeploy:github": "npm run build:github",
+    "deploy:github": "gh-pages -d docs -r https://github.com/JSP2864/preschool.git"
   },
   "dependencies": {
     "react": "^18.3.1",

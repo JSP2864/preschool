@@ -8,36 +8,51 @@ A warm, playful website for **Tiny Bubble Pre-School** — built with React, pla
 - Babel (`@babel/preset-env`, `@babel/preset-react`)
 - Tailwind CSS + plain CSS (style-loader in dev, MiniCssExtractPlugin in prod)
 - Asset modules for images, videos & fonts
-- GitHub Pages deployment
+- S3 + CloudFront deployment
 
 ## Scripts
 ```bash
 npm install           # install dependencies
 npm start             # dev server at http://localhost:3000 (HMR, source maps)
-npm run build         # production build → ./dist (minified, hashed, code-split)
+npm run build         # production build → ./build (minified, hashed, code-split)
+npm run build:github  # optional GitHub Pages build → ./docs
 npm run build:dev     # development build → ./dist (no minification)
-npm run deploy        # build and publish ./dist to GitHub Pages using gh-pages
+npm run deploy        # build, sync ./build to S3, and invalidate CloudFront
+npm run deploy:github # optional GitHub Pages deploy using gh-pages
 ```
 
-## GitHub Pages
-This project is configured for the GitHub repository:
+## S3 + CloudFront Deployment
 
-```text
-https://github.com/JSP2864/preschool.git
+Production builds are configured for hosting from the root of a CloudFront distribution. Generated asset URLs look like `/js/...`, `/css/...`, `/images/...`, and `/videos/...`.
+
+For manual S3 upload, run `npm run build`, then upload the **contents** of the `build/` folder to the S3 bucket root. Do not upload the `build` folder as a nested folder.
+
+Required GitHub Actions secrets:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION`
+- `AWS_S3_BUCKET`
+- `AWS_CLOUDFRONT_DISTRIBUTION_ID`
+
+The workflow at `.github/workflows/deploy.yml` runs on pushes to `main` or `master`, builds `build`, syncs it to S3, and creates a CloudFront invalidation.
+
+Recommended CloudFront settings for this React SPA:
+
+- Origin: the S3 bucket used by `AWS_S3_BUCKET`
+- Default root object: `index.html`
+- Custom error responses:
+  - HTTP 403 -> `/index.html` with response code `200`
+  - HTTP 404 -> `/index.html` with response code `200`
+- Viewer protocol policy: redirect HTTP to HTTPS
+
+Manual deployment from your local machine:
+
+```bash
+export AWS_S3_BUCKET=your-bucket-name
+export AWS_CLOUDFRONT_DISTRIBUTION_ID=your-distribution-id
+npm run deploy
 ```
-
-Production builds assume the site is hosted at:
-
-```text
-https://jsp2864.github.io/preschool/
-```
-
-Deployment options:
-
-- Automatic: push to `main` or `master`; `.github/workflows/deploy.yml` builds and deploys `dist` with GitHub Actions.
-- Manual: run `npm run deploy` to publish `dist` with the `gh-pages` package.
-
-In the repository settings, set GitHub Pages source to **GitHub Actions** when using the workflow.
 
 ## Project layout
 ```
@@ -55,7 +70,6 @@ tiny-bubble/
 │   │   ├── About.jsx
 │   │   ├── Programs.jsx
 │   │   ├── Gallery.jsx
-│   │   ├── News.jsx
 │   │   ├── Contact.jsx
 │   │   └── NotFound.jsx
 │   ├── styles/               # one CSS file per page/component
@@ -82,13 +96,12 @@ tiny-bubble/
 ## Webpack config notes
 - `webpack.common.js` — entry, resolve aliases (`@`, `@assets`), JS/JSX + image/video/font asset rules, `HtmlWebpackPlugin` output for both `index.html` and `404.html`.
 - `webpack.dev.js` — `mode: development`, `style-loader` for HMR-friendly CSS, `webpack-dev-server` on port `3000` with `historyApiFallback: true` for client routing.
-- `webpack.prod.js` — `mode: production`, GitHub Pages `publicPath` of `/preschool/`, `MiniCssExtractPlugin`, content-hashed filenames, vendor `splitChunks`, runtime chunk, source maps.
+- `webpack.prod.js` — `mode: production`, configurable `publicPath` and output folder, `MiniCssExtractPlugin`, content-hashed filenames, vendor `splitChunks`, runtime chunk, source maps.
 
 ## Pages
 - `/` — Hero, value props, story split sections, CTA
 - `/about` — Mission, values, visit info
 - `/programs` — 4 age-graded programs + a-day-in-the-life timeline
 - `/gallery` — 12-photo grid with keyboard-navigable lightbox
-- `/news` — Static preschool updates
-- `/contact` — Tour/contact form with local success state
+- `/contact` — Contact details, directions, and summer camp announcement
 - `*` — Friendly 404

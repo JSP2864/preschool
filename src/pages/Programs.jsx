@@ -3,7 +3,7 @@ import '../styles/Programs.css';
 
 const programs = [
   {
-    name: 'Bubbles',
+    name: 'Tiny Tots',
     age: '1.5 – 2.5 yrs',
     color: 'bubbles',
     blurb: 'Gentle parent-supported play, sensory exploration and lots of cuddles.',
@@ -34,7 +34,7 @@ const programs = [
 
 const day = [
   { time: '8:30', label: 'Soft arrival & hellos' },
-  { time: '9:00', label: 'Circle time & songs' },
+  { time: '9:00', label: 'Activity time & songs' },
   { time: '9:45', label: 'Theme of the day' },
   { time: '10:30', label: 'Snack & free play' },
   { time: '11:30', label: 'Outdoor adventure' },
@@ -46,6 +46,26 @@ const day = [
 export default function Programs() {
   return (
     <div className="programs">
+      <div className="relative mx-auto max-w-6xl px-4 pt-6 md:pt-8">
+          <div className="news-marquee">
+            <div className="news-marquee__label">Latest</div>
+            <div className="news-marquee__track" aria-label="Summer camp announcement">
+              <div className="news-marquee__content">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+              <div className="news-marquee__content" aria-hidden="true">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+            </div>
+            <a href="tel:+918287839782" className="news-marquee__call">
+              82878 39782
+            </a>
+          </div>
+        </div>
       <section className="programs__hero">
         <div className="programs__hero-copy">
           <span className="eyebrow">Programs</span>

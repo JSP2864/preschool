@@ -44,6 +44,26 @@ export default function Gallery() {
 
   return (
     <div className="gallery">
+      <div className="relative mx-auto max-w-6xl px-4 pt-6 md:pt-8">
+          <div className="news-marquee">
+            <div className="news-marquee__label">Latest</div>
+            <div className="news-marquee__track" aria-label="Summer camp announcement">
+              <div className="news-marquee__content">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+              <div className="news-marquee__content" aria-hidden="true">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+            </div>
+            <a href="tel:+918287839782" className="news-marquee__call">
+              82878 39782
+            </a>
+          </div>
+        </div>
       <section className="gallery__hero">
         <span className="eyebrow">Gallery</span>
         <h1>Little moments, big memories.</h1>

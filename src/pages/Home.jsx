@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { localPhotos, localVideos } from "../media";
 
-const heroPhotos = localPhotos.slice(0, 5);
+const heroPhotos = [
+  localPhotos[2],
+  localPhotos[5],
+  localPhotos[1],
+  localPhotos[6],
+  localPhotos[7],
+];
 const stripPhotos = localPhotos.slice(5, 13);
 
 export default function Home() {
@@ -22,10 +28,31 @@ export default function Home() {
         <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-bubble-200/60 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -right-20 h-80 w-80 rounded-full bg-sky-soft blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+        <div className="relative mx-auto max-w-6xl px-4 pt-6 md:pt-8">
+          <div className="news-marquee">
+            <div className="news-marquee__label">Latest</div>
+            <div className="news-marquee__track" aria-label="Summer camp announcement">
+              <div className="news-marquee__content">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+              <div className="news-marquee__content" aria-hidden="true">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+            </div>
+            <a href="tel:+918287839782" className="news-marquee__call">
+              82878 39782
+            </a>
+          </div>
+        </div>
+
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-10 md:grid-cols-2 md:pb-24 md:pt-16">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1 text-sm font-semibold text-bubble-600 shadow-sm ring-1 ring-bubble-200">
-              <span>✨</span> Now enrolling — ages 2 to 5
+              <span>✨</span> Now enrolling — ages 2 to 7
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-tight text-slate-800 md:text-6xl">
               A gentle place to{" "}
@@ -50,13 +77,13 @@ export default function Home() {
               </div>
               <div className="h-10 w-px bg-slate-200" />
               <div>
-                <div className="text-2xl font-extrabold text-slate-800">10+</div>
-                <div>caring years</div>
+                <div className="text-2xl font-extrabold text-slate-800">12+</div>
+                <div>teaching experience</div>
               </div>
               <div className="h-10 w-px bg-slate-200" />
               <div>
                 <div className="text-2xl font-extrabold text-slate-800">300+</div>
-                <div>happy bubbles</div>
+                <div>happy learners</div>
               </div>
             </div>
           </div>
@@ -129,7 +156,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-slate-800 md:text-4xl">
-              Watch our bubbles in action
+              Watch our little learners in action
             </h2>
             <p className="mt-2 text-slate-600">
               Learning here looks a lot like joyful play — because it is.
@@ -153,8 +180,8 @@ export default function Home() {
                 />
                 <div className="px-4 py-3 text-sm font-semibold text-slate-700">
                   {[
-                    "🎶 Circle time songs",
-                    "🎨 Messy art adventures",
+                    "🎶 Activity time",
+                    "🏫 School tour",
                     "🌳 Outdoor play",
                   ][i] || "A little moment"}
                 </div>
@@ -177,7 +204,7 @@ export default function Home() {
             {
               emoji: "👩‍🏫",
               title: "Tiny class sizes",
-              body: "6:1 child-to-teacher ratio so every bubble gets the attention it deserves.",
+              body: "6:1 child-to-teacher ratio so every child gets the attention they deserve.",
               color: "from-bubble-100 to-bubble-50",
             },
             {
@@ -207,18 +234,17 @@ export default function Home() {
           <div className="relative grid items-center gap-6 md:grid-cols-[1fr_auto]">
             <div>
               <h3 className="text-3xl font-extrabold md:text-4xl">
-                Come visit us — bring your bubble!
+                Come visit us with your child
               </h3>
               <p className="mt-2 max-w-xl text-white/90">
-                Tours every Friday morning. We'd love to show you around our cozy classrooms,
-                garden and reading nook.
+                Visit our cozy classrooms, activity corners, garden and reading nook.
               </p>
             </div>
             <Link
               to="/contact"
               className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-bold text-bubble-600 shadow-md transition hover:scale-105"
             >
-              Book a tour
+              Contact us
             </Link>
           </div>
         </div>
