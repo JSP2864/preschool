@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Tiny Bubble is a React single-page website for a preschool called Tiny Bubble Pre-School. It is a warm, playful marketing and information site for parents, with pages for home, about, programs, gallery, contact, and a friendly not-found route.
+Tiny Bubble is a React single-page website for a preschool and daycare called Tiny Bubble Pre-School & Daycare. It is a warm, playful marketing and information site for parents, with pages for home, about, programs, gallery, contact, and a friendly not-found route.
 
 The app is currently static/client-side only. There is no backend, API integration, database, authentication, or real form submission.
 
@@ -16,6 +16,7 @@ The app is currently static/client-side only. There is no backend, API integrati
 - Tailwind CSS 3 with PostCSS and Autoprefixer
 - Plain CSS files for several page/component styles
 - Webpack asset modules for images, videos, and fonts
+- AWS Lambda/API Gateway proxy for the Ollama Cloud chatbot
 
 ## Main Commands
 
@@ -23,18 +24,15 @@ The app is currently static/client-side only. There is no backend, API integrati
 npm install
 npm start
 npm run build
-npm run build:github
 npm run build:dev
 npm run deploy
-npm run deploy:github
 ```
 
 - `npm start` runs `webpack-dev-server` on `http://localhost:3000`.
 - `npm run build` creates a production build in `build`.
-- `npm run build:github` creates an optional GitHub Pages build in `docs`.
 - `npm run build:dev` creates a development build in `dist`.
 - `npm run deploy` builds `build`, syncs it to S3, and invalidates CloudFront.
-- `npm run deploy:github` publishes `docs` to `https://github.com/JSP2864/preschool.git` using `gh-pages`.
+- Do not use subpath/static-page deployment commands or alternate deployment output for this project.
 
 ## Application Structure
 
@@ -82,7 +80,7 @@ README.md
 ## Entry Points and Routing
 
 - `src/index.js` mounts the React app into `#root`, wraps it in `React.StrictMode`, and provides `BrowserRouter`.
-- The router uses a dynamic basename: `/preschool` on GitHub Pages and an empty basename during local development.
+- The production router should run at the root of `https://www.tinybubble-preschool.in/` behind CloudFront.
 - `src/App.jsx` defines the shared page shell with `Navbar`, route outlet via `Routes`, and `Footer`.
 
 Routes:
@@ -163,7 +161,7 @@ Simple friendly 404 page with a link back to home.
 
 The navbar includes:
 
-- Tiny Bubble brand/logo
+- Tiny Bubble brand/logo with Pre-School & Daycare subtitle
 - Desktop route links
 - Mobile menu toggle
 - Active route styling via `NavLink`
@@ -217,7 +215,7 @@ Webpack handles images and videos through asset/resource rules and emits hashed 
 - Babel loader for JS/JSX
 - Asset modules for images, videos, and fonts
 - `HtmlWebpackPlugin` using `public/index.html`
-- Generates both `index.html` and `404.html` so GitHub Pages can serve the React app for deep links and refreshes.
+- Generates both `index.html` and `404.html`. S3 + CloudFront should serve `index.html` for SPA fallback responses.
 
 ### Development Config
 
@@ -242,7 +240,7 @@ Webpack handles images and videos through asset/resource rules and emits hashed 
 - Content-hashed JS and CSS output
 - Production `publicPath` and output path are configurable with Webpack env arguments.
 - Default `npm run build` uses `publicPath=/` and `outputPath=build` for S3 + CloudFront.
-- Optional `npm run build:github` uses `publicPath=/preschool/` and `outputPath=docs` for GitHub Pages.
+- Do not introduce subpath public paths or alternate deployment folders.
 - Vendor split chunk
 - Runtime chunk
 - Performance warning thresholds set to 512 KB
@@ -274,25 +272,39 @@ Deployment support:
   - Custom error response 404 -> `/index.html` with response code `200`
   - Viewer protocol policy: redirect HTTP to HTTPS
 
-## Optional GitHub Pages Deployment
+## Chatbot Architecture
 
-Repository URL:
+The site includes a floating Tiny Bubble assistant:
+
+- Frontend: `src/components/Chatbot.jsx`
+- Styling: `src/styles/Chatbot.css`
+- Browser endpoint: `POST /api/chat`
+- Backend: `server/chat-lambda.js`
+- Model: Ollama Cloud `gemma4:31b`
+
+CloudFront uses two origins:
+
+- Default behavior -> S3 website assets
+- `/api/*` behavior -> API Gateway/Lambda with caching disabled
+
+The Lambda stores `OLLAMA_API_KEY` as an environment variable and calls
+`https://ollama.com/api/chat`. The key must never be placed in frontend code,
+Webpack variables, S3, or Git. See `server/README.md` for setup.
+
+## Domain and SEO
+
+Production domain:
 
 ```text
-https://github.com/JSP2864/preschool.git
+https://www.tinybubble-preschool.in/
 ```
 
-Expected GitHub Pages URL:
+SEO support:
 
-```text
-https://jsp2864.github.io/preschool/
-```
-
-Deployment support:
-
-- `package.json` has `build:github` and `deploy:github` fields for optional deployment with `gh-pages`.
-- GitHub Pages builds emit asset URLs under `/preschool/`.
-- `webpack.common.js` emits a matching `404.html` to support direct browser refreshes on React Router paths.
+- `public/robots.txt` must point crawlers to `https://www.tinybubble-preschool.in/sitemap.xml`.
+- `public/sitemap.xml` must list canonical URLs on `https://www.tinybubble-preschool.in/`.
+- Canonical tags, Open Graph URLs, and structured data URLs should use the production domain.
+- Do not publish crawl files that point to repository-hosted preview URLs, subpaths, or non-production domains.
 
 ## Current Build Status
 
@@ -304,6 +316,7 @@ Observed build result:
 - Total emitted/cached asset payload is about 43 MB.
 - `build/index.html` and `build/404.html` are generated and match.
 - Generated CSS and JS URLs point to root-relative paths such as `/js/...` and `/css/...`.
+- Generated crawl files should point to `https://www.tinybubble-preschool.in/`.
 - Webpack reports performance warnings because many image and video files exceed the configured 512 KB limit.
 
 Large assets include:

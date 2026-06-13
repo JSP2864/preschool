@@ -104,8 +104,13 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
         >
           <BubbleLogo />
-          <span className="font-display text-2xl font-extrabold tracking-tight text-orange-500">
-            Tiny Bubble
+          <span className="leading-none">
+            <span className="block font-display text-2xl font-extrabold tracking-tight text-orange-500">
+              Tiny Bubble
+            </span>
+            <span className="brand-subtitle">
+              Pre-School &amp; Daycare
+            </span>
           </span>
         </Link>
 

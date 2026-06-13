@@ -48,6 +48,32 @@
     @apply rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/5;
   }
 
+  .brand-subtitle {
+    margin-left: 4.4rem;
+    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+    @apply block text-base font-extrabold leading-none text-orange-500;
+  }
+
+  .home-hero-bg {
+    @apply absolute inset-0 h-full w-full scale-105 object-cover opacity-0 transition-opacity duration-[1800ms];
+  }
+
+  .home-hero-bg--active {
+    @apply opacity-[0.36];
+  }
+
+  .page-soft-bg {
+    @apply pointer-events-none absolute inset-0 overflow-hidden;
+  }
+
+  .page-soft-bg-host {
+    @apply relative overflow-hidden rounded-3xl;
+  }
+
+  .page-soft-bg-host > :not(.page-soft-bg) {
+    @apply relative;
+  }
+
   .news-marquee {
     @apply flex items-center gap-2 overflow-hidden rounded-full bg-white/90 p-1.5 shadow-lg ring-1 ring-orange-100 backdrop-blur sm:gap-3 sm:p-2;
   }

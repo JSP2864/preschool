@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="footer__brand">
           <span className="footer__bubble" aria-hidden="true">🫧</span>
           <div>
-            <h3>Tiny Bubble Pre-School</h3>
+            <h3>Tiny Bubble Pre-School &amp; Daycare</h3>
             <p>Where little ones learn, laugh and grow.</p>
           </div>
         </div>
@@ -46,7 +46,7 @@ export default function Footer() {
       </div>
 
       <div className="footer__base">
-        <p>© {year} Tiny Bubble Pre-School · Made with ♥ for tiny humans</p>
+        <p>© {year} Tiny Bubble Pre-School &amp; Daycare · Made with ♥ for tiny humans</p>
       </div>
     </footer>
   );

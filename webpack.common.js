@@ -1,5 +1,45 @@
 const path = require('path');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const packageJson = require('./package.json');
+
+const siteUrl = (process.env.SITE_URL || packageJson.homepage || '').replace(/\/$/, '');
+const siteRoot = siteUrl ? `${siteUrl}/` : '/';
+
+class PublicStaticAssetsPlugin {
+  constructor(options = {}) {
+    this.siteUrl = options.siteUrl;
+  }
+
+  apply(compiler) {
+    const pluginName = 'PublicStaticAssetsPlugin';
+    const publicDir = path.resolve(__dirname, 'public');
+
+    compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
+      compilation.hooks.processAssets.tap(
+        {
+          name: pluginName,
+          stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
+        },
+        () => {
+          for (const filename of fs.readdirSync(publicDir)) {
+            if (filename === 'index.html') continue;
+
+            const filePath = path.join(publicDir, filename);
+            if (!fs.statSync(filePath).isFile()) continue;
+
+            const isTextAsset = /\.(txt|xml)$/i.test(filename);
+            const source = isTextAsset
+              ? fs.readFileSync(filePath, 'utf8').replaceAll('__SITE_URL__', this.siteUrl)
+              : fs.readFileSync(filePath);
+
+            compilation.emitAsset(filename, new compiler.webpack.sources.RawSource(source));
+          }
+        }
+      );
+    });
+  }
+}
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/index.js'),
@@ -39,11 +79,14 @@ module.exports = {
       template: path.resolve(__dirname, 'public/index.html'),
       inject: 'body',
       filename: 'index.html',
+      siteRoot,
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
       inject: 'body',
       filename: '404.html',
+      siteRoot,
     }),
+    new PublicStaticAssetsPlugin({ siteUrl }),
   ],
 };

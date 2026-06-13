@@ -1,6 +1,6 @@
-# Tiny Bubble Pre-School
+# Tiny Bubble Pre-School & Daycare
 
-A warm, playful website for **Tiny Bubble Pre-School** — built with React, plain CSS, and Webpack 5 (separate dev/prod configs).
+A warm, playful website for **Tiny Bubble Pre-School & Daycare** — built with React, plain CSS, and Webpack 5 (separate dev/prod configs).
 
 ## Stack
 - React 18 + react-router-dom v6
@@ -15,10 +15,8 @@ A warm, playful website for **Tiny Bubble Pre-School** — built with React, pla
 npm install           # install dependencies
 npm start             # dev server at http://localhost:3000 (HMR, source maps)
 npm run build         # production build → ./build (minified, hashed, code-split)
-npm run build:github  # optional GitHub Pages build → ./docs
 npm run build:dev     # development build → ./dist (no minification)
 npm run deploy        # build, sync ./build to S3, and invalidate CloudFront
-npm run deploy:github # optional GitHub Pages deploy using gh-pages
 ```
 
 ## S3 + CloudFront Deployment
@@ -54,6 +52,27 @@ export AWS_CLOUDFRONT_DISTRIBUTION_ID=your-distribution-id
 npm run deploy
 ```
 
+## Tiny Bubble Chatbot
+
+The floating website assistant calls `/api/chat`. The browser never receives
+the Ollama API key.
+
+Backend files:
+
+- `server/chat-lambda.js`: AWS Lambda handler for Ollama Cloud
+- `server/README.md`: Lambda, API Gateway, and CloudFront setup
+
+Required Lambda environment variables:
+
+```text
+OLLAMA_API_KEY=<new rotated Ollama API key>
+OLLAMA_MODEL=gemma4:31b
+ALLOWED_ORIGIN=https://www.tinybubble-preschool.in
+```
+
+CloudFront must route `/api/*` to API Gateway with caching disabled. All other
+paths continue to use the S3 origin.
+
 ## Project layout
 ```
 tiny-bubble/
@@ -63,6 +82,7 @@ tiny-bubble/
 │   ├── index.js              # entry — mounts <App /> with BrowserRouter
 │   ├── App.jsx               # routes
 │   ├── components/
+│   │   ├── Chatbot.jsx
 │   │   ├── Navbar.jsx
 │   │   └── Footer.jsx
 │   ├── pages/
@@ -83,6 +103,9 @@ tiny-bubble/
 │   └── assets/
 │       ├── images/           # hero.jpg, about.jpg, programs.jpg, gallery-1..12.jpg
 │       └── videos/           # video-1..3.mp4
+├── server/
+│   ├── chat-lambda.js        # secure Ollama Cloud proxy
+│   └── README.md             # AWS API setup
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml

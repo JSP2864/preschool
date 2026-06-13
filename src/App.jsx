@@ -7,10 +7,13 @@ import Programs from './pages/Programs';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import SEO from './components/SEO';
+import Chatbot from './components/Chatbot';
 
 export default function App() {
   return (
     <div className="app-shell">
+      <SEO />
       <Navbar />
       <main className="app-main">
         <Routes>
@@ -23,6 +26,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 }

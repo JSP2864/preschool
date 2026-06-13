@@ -48,11 +48,19 @@ export default function Programs() {
     <div className="programs">
       <div className="relative mx-auto max-w-6xl px-4 pt-6 md:pt-8">
           <div className="news-marquee">
-            <div className="news-marquee__label" aria-label="Latest">
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2zm6 11l.9 2.7 2.7.9-2.7.9-.9 2.7-.9-2.7-2.7-.9 2.7-.9.9-2.7zM5 14l.7 2.1 2.1.7-2.1.7L5 19.6l-.7-2.1-2.1-.7 2.1-.7L5 14z"/>
+            <a
+              href="https://www.google.com/maps?q=28.568299,77.398063"
+              target="_blank"
+              rel="noreferrer"
+              className="news-marquee__label"
+              aria-label="Open Tiny Bubble Pre-School location"
+              title="Open location"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a.92.92 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                <circle cx="12" cy="10" r="3" />
               </svg>
-            </div>
+            </a>
             <div className="news-marquee__track" aria-label="Summer camp announcement">
               <div className="news-marquee__content">
                 <span>Summer Camp starts 18 May onward</span>
