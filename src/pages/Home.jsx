@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import RotatingPageBackground from "../components/RotatingPageBackground";
 import { localPhotos, localVideos } from "../media";
 
-const heroPhotos = localPhotos.slice(0, 5);
+const heroPhotos = [
+  localPhotos[2],
+  localPhotos[5],
+  localPhotos[1],
+  localPhotos[6],
+  localPhotos[7],
+];
 const stripPhotos = localPhotos.slice(5, 13);
 
 export default function Home() {
@@ -19,13 +26,52 @@ export default function Home() {
     <div>
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-bubble-100 via-white to-sky-soft">
+        <RotatingPageBackground />
         <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-bubble-200/60 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -right-20 h-80 w-80 rounded-full bg-sky-soft blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+        <div className="relative mx-auto max-w-6xl px-4 pt-6 md:pt-8">
+          <div className="news-marquee">
+            <a
+              href="https://www.google.com/maps?q=28.568299,77.398063"
+              target="_blank"
+              rel="noreferrer"
+              className="news-marquee__label"
+              aria-label="Open Tiny Bubble Pre-School location"
+              title="Open location"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a.92.92 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </a>
+            <div className="news-marquee__track" aria-label="Summer camp announcement">
+              <div className="news-marquee__content">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+              <div className="news-marquee__content" aria-hidden="true">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+            </div>
+            <a href="tel:+918287839782" className="news-marquee__call">
+              82878 39782
+            </a>
+            <a href="tel:+918287839782" className="news-marquee__call-mobile" aria-label="Call 82878 39782">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-10 md:grid-cols-2 md:pb-24 md:pt-16">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1 text-sm font-semibold text-bubble-600 shadow-sm ring-1 ring-bubble-200">
-              <span>✨</span> Now enrolling — ages 2 to 5
+              <span>✨</span> Now enrolling — ages 2 to 7
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-tight text-slate-800 md:text-6xl">
               A gentle place to{" "}
@@ -50,13 +96,13 @@ export default function Home() {
               </div>
               <div className="h-10 w-px bg-slate-200" />
               <div>
-                <div className="text-2xl font-extrabold text-slate-800">10+</div>
-                <div>caring years</div>
+                <div className="text-2xl font-extrabold text-slate-800">12+</div>
+                <div>teaching experience</div>
               </div>
               <div className="h-10 w-px bg-slate-200" />
               <div>
                 <div className="text-2xl font-extrabold text-slate-800">300+</div>
-                <div>happy bubbles</div>
+                <div>happy learners</div>
               </div>
             </div>
           </div>
@@ -129,7 +175,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-slate-800 md:text-4xl">
-              Watch our bubbles in action
+              Watch our little learners in action
             </h2>
             <p className="mt-2 text-slate-600">
               Learning here looks a lot like joyful play — because it is.
@@ -153,8 +199,8 @@ export default function Home() {
                 />
                 <div className="px-4 py-3 text-sm font-semibold text-slate-700">
                   {[
-                    "🎶 Circle time songs",
-                    "🎨 Messy art adventures",
+                    "🎶 Activity time",
+                    "🏫 School tour",
                     "🌳 Outdoor play",
                   ][i] || "A little moment"}
                 </div>
@@ -177,7 +223,7 @@ export default function Home() {
             {
               emoji: "👩‍🏫",
               title: "Tiny class sizes",
-              body: "6:1 child-to-teacher ratio so every bubble gets the attention it deserves.",
+              body: "6:1 child-to-teacher ratio so every child gets the attention they deserve.",
               color: "from-bubble-100 to-bubble-50",
             },
             {
@@ -207,18 +253,17 @@ export default function Home() {
           <div className="relative grid items-center gap-6 md:grid-cols-[1fr_auto]">
             <div>
               <h3 className="text-3xl font-extrabold md:text-4xl">
-                Come visit us — bring your bubble!
+                Come visit us with your child
               </h3>
               <p className="mt-2 max-w-xl text-white/90">
-                Tours every Friday morning. We'd love to show you around our cozy classrooms,
-                garden and reading nook.
+                Visit our cozy classrooms, activity corners, garden and reading nook.
               </p>
             </div>
             <Link
               to="/contact"
               className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-bold text-bubble-600 shadow-md transition hover:scale-105"
             >
-              Book a tour
+              Contact us
             </Link>
           </div>
         </div>

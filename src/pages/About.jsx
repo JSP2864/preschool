@@ -1,4 +1,5 @@
 import aboutImage from '@assets/images/about.jpg';
+import DirectionLink from '../components/DirectionLink';
 import '../styles/About.css';
 
 const values = [
@@ -11,6 +12,43 @@ const values = [
 export default function About() {
   return (
     <div className="about">
+      <div className="relative mx-auto max-w-6xl px-4 pt-6 md:pt-8">
+          <div className="news-marquee">
+            <a
+              href="https://www.google.com/maps?q=28.568299,77.398063"
+              target="_blank"
+              rel="noreferrer"
+              className="news-marquee__label"
+              aria-label="Open Tiny Bubble Pre-School location"
+              title="Open location"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a.92.92 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </a>
+            <div className="news-marquee__track" aria-label="Summer camp announcement">
+              <div className="news-marquee__content">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+              <div className="news-marquee__content" aria-hidden="true">
+                <span>Summer Camp starts 18 May onward</span>
+                <span>Creative activities, stories, music, movement and outdoor play</span>
+                <span>Admissions open for ages 2 to 7</span>
+              </div>
+            </div>
+            <a href="tel:+918287839782" className="news-marquee__call">
+              82878 39782
+            </a>
+            <a href="tel:+918287839782" className="news-marquee__call-mobile" aria-label="Call 82878 39782">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
       <section className="about__hero">
         <div className="about__hero-copy">
           <span className="eyebrow">About us</span>
@@ -53,17 +91,20 @@ export default function About() {
         <div className="visit__grid">
           <div>
             <h4>Address</h4>
-            <p>12 Sunshine Lane<br />Greenpark, 560001</p>
+            <p>
+              SK-137, Sec-116 Noida<br />
+              <DirectionLink className="mt-2" />
+            </p>
           </div>
           <div>
             <h4>Hours</h4>
-            <p>Monday – Friday<br />8:30 AM – 4:30 PM</p>
+            <p>Monday - Saturday<br />8:30 AM - 2:00 PM</p>
           </div>
           <div>
             <h4>Reach out</h4>
             <p>
-              <a href="mailto:hello@tinybubble.school">hello@tinybubble.school</a><br />
-              <a href="tel:+910000000000">+91 00000 00000</a>
+              <a href="mailto:contact@tinybubblepreschool.com">contact@tinybubblepreschool.com</a><br />
+              <a href="tel:+918287839782">+91 82878 39782</a>
             </p>
           </div>
         </div>

@@ -47,6 +47,66 @@
   .card {
     @apply rounded-3xl bg-white p-6 shadow-md ring-1 ring-black/5;
   }
+
+  .brand-subtitle {
+    margin-left: 4.4rem;
+    font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+    @apply block text-base font-extrabold leading-none text-orange-500;
+  }
+
+  .home-hero-bg {
+    @apply absolute inset-0 h-full w-full scale-105 object-cover opacity-0 transition-opacity duration-[1800ms];
+  }
+
+  .home-hero-bg--active {
+    @apply opacity-[0.36];
+  }
+
+  .page-soft-bg {
+    @apply pointer-events-none absolute inset-0 overflow-hidden;
+  }
+
+  .page-soft-bg-host {
+    @apply relative overflow-hidden rounded-3xl;
+  }
+
+  .page-soft-bg-host > :not(.page-soft-bg) {
+    @apply relative;
+  }
+
+  .news-marquee {
+    @apply flex items-center gap-2 overflow-hidden rounded-full bg-white/90 p-1.5 shadow-lg ring-1 ring-orange-100 backdrop-blur sm:gap-3 sm:p-2;
+  }
+
+  .news-marquee__label {
+    @apply inline-flex shrink-0 items-center justify-center bg-transparent px-1 text-orange-500;
+  }
+
+  .news-marquee__track {
+    @apply flex min-w-0 flex-1 overflow-hidden;
+  }
+
+  .news-marquee__content {
+    animation: news-marquee 24s linear infinite;
+    @apply flex min-w-max items-center gap-6 pr-6 text-xs font-extrabold text-slate-800 sm:gap-8 sm:pr-8 sm:text-sm;
+  }
+
+  .news-marquee__content span {
+    @apply relative whitespace-nowrap;
+  }
+
+  .news-marquee__content span::after {
+    content: '';
+    @apply absolute -right-4 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-orange-300 sm:-right-5 sm:h-2 sm:w-2;
+  }
+
+  .news-marquee__call {
+    @apply hidden shrink-0 rounded-full bg-slate-900 px-4 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-orange-600 sm:inline-flex;
+  }
+
+  .news-marquee__call-mobile {
+    @apply inline-flex shrink-0 items-center justify-center rounded-full bg-slate-900 p-2 text-white shadow-sm transition hover:bg-orange-600 sm:hidden;
+  }
 }
 
 @layer utilities {
@@ -55,6 +115,11 @@
     background: theme('colors.bubble.200');
     border-radius: 9999px;
   }
+}
+
+@keyframes news-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
